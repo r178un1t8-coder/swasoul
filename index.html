@@ -1,1 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#6c3cf0">
+<meta name="description" content="SWASOUL — Your World. Your People. Your Possibilities.">
+<title>SWASOUL — Your World, Your People</title>
 
+<style>
+:root {
+  --purple: #6c3cf0;
+  --pink: #ff4f9a;
+  --bg: #f7f6fc;
+  --text: #211d32;
+  --muted: #77738a;
+  --white: #ffffff;
+  --border: #ece9f5;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, sans-serif;
+}
+button, input, textarea { font: inherit; }
+button { cursor: pointer; }
+.topbar {
+  background: white;
+  border-bottom: 1px solid var(--border);
+  padding: 13px 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.logo {
+  font-size: 25px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  color: var(--purple);
+}
+.logo span { color: var(--pink); }
+.tagline { font-size: 11px; color: var(--muted); }
+.search {
+  width: min(36%, 340px);
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 25px;
+  background: var(--bg);
+  outline-color: var(--purple);
+}
+.layout {
+  max-width: 1180px;
+  margin: 24px auto;
+  padding: 0 16px;
+  display: grid;
+  grid-template-columns: 210px minmax(0, 600px) 240px;
+  gap: 22px;
+}
+.card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 17px;
+  margin-bottom: 17px;
+}
+.nav button {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin: 3px 0;
+  border: 0;
+  border-radius: 12px;
+  text-align: left;
+  background: transparent;
+  color: var(--text);
+}
+.nav button:hover, .nav button.active {
+  background: #f0eaff;
+  color: var(--purple);
+}
+.primary {
+  background: linear-gradient(120deg, var(--purple), var(--pink));
+  color: white;
+  border: 0;
+  border-radius: 12px;
+  padding: 11px 16px;
+  font-weight: 700;
+}
+.full { width: 100%; }
+h2 { font-size: 20px; margin: 0 0 14px; }
+h3 { font-size: 15px; margin: 0 0 8px; }
+p { line-height: 1.55; }
+.muted { color: var(--muted); font-size: 13px; }
+.stories {
+  display: flex;
+  gap: 13px;
+  overflow-x: auto;
+  padding-bottom: 5px;
+}
+.story { text-align: center; min-width: 62px; font-size: 11px; }
+.avatar {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e7dfff, #ffd9ec);
+  font-size: 23px;
+  margin: 0 auto 6px;
+}
+.composer textarea {
+  width: 100%;
+  min-height: 80px;
+  border: 1px solid var(--border);
+  background: #fbfaff;
+  border-radius: 12px;
+  padding: 12px;
+  resize: vertical;
+  outline-color: var(--purple);
+}
+.composer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+.post-head {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.post-head .avatar { margin: 0; flex-shrink: 0; }
+.post-head strong { display: block; font-size: 14px; }
+.post-content { white-space: pre-wrap; overflow-wrap: anywhere; }
+.post-actions {
+  display: flex;
+  gap: 8px;
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+  margin-top: 12px;
+}
+.post-actions button {
+  border: 0;
+  background: #f6f3fc;
+  border-radius: 10px;
+  padding: 8px 10px;
+  color: var(--text);
+}
+.post-actions button.liked { color: #e52f78; }
+.community {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+  margin-top: 10px;
+}
+.community button { margin-top: 8px; }
+.section { display: none; }
+.section.active { display: block; }
+.footer { text-align: center; font-size: 11px; color: var(--muted); padding: 18px; }
+.mobile-nav { display: none; }
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 175px minmax(0, 1fr); }
+  .rightbar { display: none; }
+}
+@media (max-width: 620px) {
+  .topbar { padding: 11px 13px; flex-wrap: wrap; }
+  .logo { font-size: 23px; }
+  .tagline { display: none; }
+  .search { order: 3; width: 100%; }
+  .layout { display: block; margin: 14px auto 80px; padding: 0 10px; }
+  .leftbar { display: none; }
+  .card { padding: 14px; border-radius: 15px; }
+  .mobile-nav {
+    position: fixed;
+    display: flex;
+    justify-content: space-around;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 1px solid var(--border);
+    padding: 9px 3px;
+    z-index: 20;
+  }
+  .mobile-nav button {
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    font-size: 11px;
+    padding: 5px;
+  }
+  .mobile-nav button.active { color: var(--purple); font-weight: 800; }
+}
+</style>
+</head>
+
+<body>
+<header class="topbar">
+  <div>
+    <div class="logo">SWA<span>SOUL</span></div>
+    <div class="tagline">YOUR WORLD. YOUR PEOPLE. YOUR POSSIBILITIES.</div>
+  </div>
+  <input id="searchInput" class="search" placeholder="🔎 Search posts..." aria-label="Search posts">
+  <button class="primary" onclick="showSection('profile')">My Profile</button>
+</header>
+
+<div class="layout">
+  <aside class="leftbar">
+    <div class="card nav">
+      <h3>Explore SWASOUL</h3>
+      <button class="active" data-section="home" onclick="showSection('home')">🏠 Home Feed</button>
+      <button data-section="explore" onclick="showSection('explore')">🌍 Explore</button>
+      <button data-section="communities" onclick="showSection('communities')">👥 Communities</button>
+      <button data-section="messages" onclick="showSection('messages')">💬 Messages</button>
+      <button data-section="profile" onclick="showSection('profile')">👤 My Profile</button>
+    </div>
+    <div class="card">
+      <h3>💜 Our purpose</h3>
+      <p class="muted">A place to express yourself, discover new ideas, and find people who share your interests.</p>
+      <p><strong>Think freely. Connect meaningfully.</strong></p>
+    </div>
+  </aside>
+
+  <main>
+    <section id="home" class="section active">
+      <div class="card">
+        <h2>Welcome to your world 🌎</h2>
+        <p class="muted">A new space for your ideas, interests, and connections.</p>
+        <div class="stories">
+          <div class="story"><div class="avatar">➕</div>Your story</div>
+          <div class="story"><div class="avatar">🚀</div>Technology</div>
+          <div class="story"><div class="avatar">🎨</div>Creativity</div>
+          <div class="story"><div class="avatar">🎮</div>Gaming</div>
+          <div class="story"><div class="avatar">🌱</div>Learning</div>
+        </div>
+      </div>
+
+      <div class="card composer">
+        <h3>Share what's on your mind ✨</h3>
+        <textarea id="postInput" maxlength="2000" placeholder="Your thoughts, discoveries, questions..."></textarea>
+        <div class="composer-row">
+          <span class="muted">Be real. Be respectful.</span>
+          <button class="primary" onclick="createPost()">＋ Publish</button>
+        </div>
+      </div>
+      <div id="feed"></div>
+    </section>
+
+    <section id="explore" class="section">
+      <div class="card">
+        <h2>🌍 Explore ideas</h2>
+        <p>Discover a world of interests. Search for posts using the search bar above.</p>
+        <div class="community"><h3>🤖 Technology & AI</h3><p class="muted">Ideas shaping tomorrow.</p></div>
+        <div class="community"><h3>🎨 Art & Creativity</h3><p class="muted">Show the world how you see it.</p></div>
+        <div class="community"><h3>📚 Learning & Discovery</h3><p class="muted">Curiosity brings us together.</p></div>
+        <div class="community"><h3>🌏 Culture & Travel</h3><p class="muted">Discover perspectives from everywhere.</p></div>
+      </div>
+    </section>
+
+    <section id="communities" class="section">
+      <div class="card">
+        <h2>👥 Find your community</h2>
+        <p class="muted">Choose the groups you'd like to explore. Membership is a local demo for now.</p>
+        <div id="communityList"></div>
+      </div>
+    </section>
+
+    <section id="messages" class="section">
+      <div class="card">
+        <h2>💬 Messages</h2>
+        <p>Meaningful conversations are part of the SWASOUL vision.</p>
+        <p class="muted">Private messaging is not connected yet. This prototype cannot send messages to other people.</p>
+      </div>
+    </section>
+
+    <section id="profile" class="section">
+      <div class="card">
+        <h2>👤 My profile</h2>
+        <div class="avatar" style="width:70px;height:70px">🌟</div>
+        <label for="displayName">Display name</label>
+        <input id="displayName" maxlength="40" placeholder="Your name" style="width:100%;padding:11px;margin:8px 0 14px;border:1px solid var(--border);border-radius:10px">
+        <label for="bioInput">About you</label>
+        <textarea id="bioInput" maxlength="250" placeholder="Tell people a little about yourself..." style="width:100%;padding:11px;margin-top:8px;border:1px solid var(--border);border-radius:10px"></textarea>
+        <button class="primary full" style="margin-top:12px" onclick="saveProfile()">Save profile on this device</button>
+        <p class="muted">Your profile details are stored only in this browser. They are not publicly visible.</p>
+      </div>
+    </section>
+  </main>
+
+  <aside class="rightbar">
+    <div class="card">
+      <h3>✨ Discover</h3>
+      <p class="muted">Great ideas can start with one connection.</p>
+      <button class="primary full" onclick="showSection('communities')">Explore communities</button>
+    </div>
+    <div class="card">
+      <h3>🛡️ Community values</h3>
+      <p class="muted">Respect people. Protect privacy. Think before sharing. Make room for different perspectives.</p>
+    </div>
+    <div class="card">
+      <h3>🚀 The SWASOUL vision</h3>
+      <p class="muted">Your world. Your people. Your possibilities.</p>
+    </div>
+  </aside>
+</div>
+
+<nav class="mobile-nav">
+  <button class="active" data-section="home" onclick="showSection('home')">🏠<br>Home</button>
+  <button data-section="explore" onclick="showSection('explore')">🌍<br>Explore</button>
+  <button data-section="communities" onclick="showSection('communities')">👥<br>Groups</button>
+  <button data-section="messages" onclick="showSection('messages')">💬<br>Messages</button>
+  <button data-section="profile" onclick="showSection('profile')">👤<br>Profile</button>
+</nav>
+
+<div class="footer">© <span id="year"></span> SWASOUL · Your World. Your People. Your Possibilities.</div>
+
+<script>
+const starterPosts = [
+  {
+    id: "welcome",
+    name: "SWASOUL Community",
+    time: "Welcome post",
+    text: "Welcome to SWASOUL! 🌍 This is the beginning of a space built around ideas, creativity, and meaningful connections. What would you love to see here?",
+    likes: 0,
+    liked: false
+  }
+];
+
+function readPosts() {
+  try {
+    const saved = localStorage.getItem("swasoul_posts");
+    return saved ? JSON.parse(saved) : starterPosts;
+  } catch (e) {
+    return starterPosts;
+  }
+}
+let posts = readPosts();
+
+function savePosts() {
+  try {
+    localStorage.setItem("swasoul_posts", JSON.stringify(posts));
+  } catch (e) {
+    alert("Your browser could not save this post. Check your browser storage settings.");
+  }
+}
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, char => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  }[char]));
+}
+
+function renderFeed(filter = "") {
+  const feed = document.getElementById("feed");
+  const query = filter.trim().toLowerCase();
+  const visible = posts.filter(p => (p.text + " " + p.name).toLowerCase().includes(query));
+  if (!visible.length) {
+    feed.innerHTML = '<div class="card"><p>No matching posts found. Try another search.</p></div>';
+    return;
+  }
+  feed.innerHTML = visible.map(p => `
+    <article class="card">
+      <div class="post-head">
+        <div class="avatar">🌟</div>
+        <div><strong>${escapeHTML(p.name)}</strong><span class="muted">${escapeHTML(p.time)}</span></div>
+      </div>
+      <div class="post-content">${escapeHTML(p.text)}</div>
+      <div class="post-actions">
+        <button class="${p.liked ? "liked" : ""}" onclick="toggleLike('${p.id}')">${p.liked ? "❤️ Liked" : "🤍 Like"} · ${p.likes}</button>
+        <button onclick="sharePost('${p.id}')">↗ Share</button>
+      </div>
+    </article>
+  `).join("");
+}
+
+function createPost() {
+  const input = document.getElementById("postInput");
+  const value = input.value.trim();
+  if (!value) {
+    alert("Write something before publishing!");
+    return;
+  }
+  const profile = getProfile();
+  posts.unshift({
+    id: String(Date.now()),
+    name: profile.name || "SWASOUL Member",
+    time: "Just now · saved on this device",
+    text: value,
+    likes: 0,
+    liked: false
+  });
+  savePosts();
+  input.value = "";
+  renderFeed(document.getElementById("searchInput").value);
+  showSection("home");
+}
+
+function toggleLike(id) {
+  posts = posts.map(p => {
+    if (p.id === id) {
+      p.liked = !p.liked;
+      p.likes = Math.max(0, p.likes + (p.liked ? 1 : -1));
+    }
+    return p;
+  });
+  savePosts();
+  renderFeed(document.getElementById("searchInput").value);
+}
+
+async function sharePost(id) {
+  const post = posts.find(p => p.id === id);
+  if (!post) return;
+  const shareData = { title: "SWASOUL", text: post.text };
+  try {
+    if (navigator.share) await navigator.share(shareData);
+    else if (navigator.clipboard) {
+      await navigator.clipboard.writeText(post.text);
+      alert("Post text copied. You can paste it into another app.");
+    } else {
+      alert(post.text);
+    }
+  } catch (e) {}
+}
+
+function showSection(id) {
+  document.querySelectorAll(".section").forEach(s => s.classList.toggle("active", s.id === id));
+  document.querySelectorAll("[data-section]").forEach(b => b.classList.toggle("active", b.dataset.section === id));
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+const communities = [
+  ["🤖", "Technology & AI", "Discover ideas shaping the future."],
+  ["📚", "Learning Circle", "Learn something new together."],
+  ["🎨", "Creative Minds", "Share art, design, and imagination."],
+  ["🎮", "Gaming World", "Talk about games and gaming culture."],
+  ["🌱", "Planet & Nature", "Explore sustainability and the natural world."]
+];
+
+function renderCommunities() {
+  const joined = getJoined();
+  document.getElementById("communityList").innerHTML = communities.map((c, i) => `
+    <div class="community">
+      <h3>${c[0]} ${c[1]}</h3>
+      <p class="muted">${c[2]}</p>
+      <button class="primary" onclick="toggleCommunity(${i})">${joined.includes(i) ? "Joined ✓" : "Join community"}</button>
+    </div>
+  `).join("");
+}
+function getJoined() {
+  try { return JSON.parse(localStorage.getItem("swasoul_joined") || "[]"); }
+  catch (e) { return []; }
+}
+function toggleCommunity(i) {
+  let joined = getJoined();
+  joined = joined.includes(i) ? joined.filter(x => x !== i) : [...joined, i];
+  localStorage.setItem("swasoul_joined", JSON.stringify(joined));
+  renderCommunities();
+}
+
+function getProfile() {
+  try {
+    return JSON.parse(localStorage.getItem("swasoul_profile") || '{"name":"","bio":""}');
+  } catch (e) {
+    return { name: "", bio: "" };
+  }
+}
+function saveProfile() {
+  const profile = {
+    name: document.getElementById("displayName").value.trim(),
+    bio: document.getElementById("bioInput").value.trim()
+  };
+  localStorage.setItem("swasoul_profile", JSON.stringify(profile));
+  alert("Profile saved on this device!");
+}
+function loadProfile() {
+  const profile = getProfile();
+  document.getElementById("displayName").value = profile.name;
+  document.getElementById("bioInput").value = profile.bio;
+}
+
+document.getElementById("searchInput").addEventListener("input", e => renderFeed(e.target.value));
+document.getElementById("year").textContent = new Date().getFullYear();
+
+renderFeed();
+renderCommunities();
+loadProfile();
+</script>
+</body>
+  </html>
