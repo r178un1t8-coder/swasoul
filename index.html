@@ -489,6 +489,144 @@ function loadProfile() {
 document.getElementById("searchInput").addEventListener("input", e => renderFeed(e.target.value));
 document.getElementById("year").textContent = new Date().getFullYear();
 
+// ========================================
+// CONNECTWORLD BRANDING UPGRADE
+// Version 1.0
+// Preserves original SWASOUL theme
+// ========================================
+
+// Update browser title
+document.title = "ConnectWorld — Your World, Your People";
+
+// Update page description
+document.querySelector('meta[name="description"]')
+  .setAttribute(
+    "content",
+    "ConnectWorld — Your World. Your People. Your Possibilities."
+  );
+
+// Update logo
+document.querySelector(".logo").innerHTML =
+  'Connect<span>World</span>';
+
+// Update sidebar heading
+document.querySelector(".nav h3").textContent =
+  "Explore ConnectWorld";
+
+// Update welcome post
+starterPosts[0].name = "ConnectWorld Community";
+starterPosts[0].text =
+  "Welcome to ConnectWorld! 🌍 A space built around ideas, creativity, learning, and meaningful connections.";
+
+// Update right sidebar
+document.querySelector(".rightbar h3:nth-of-type(2)")?.textContent =
+  "The ConnectWorld vision";
+
+// Update messages heading
+document.querySelector("#messages h2").textContent =
+  "💬 ConnectWorld Messages";
+
+// Update share title
+const originalSharePost = sharePost;
+
+sharePost = async function(id) {
+  const post = posts.find(p => p.id === id);
+  if (!post) return;
+
+  const shareData = {
+    title: "ConnectWorld",
+    text: post.text
+  };
+
+  try {
+    if (navigator.share) {
+      await navigator.share(shareData);
+    } else if (navigator.clipboard) {
+      await navigator.clipboard.writeText(post.text);
+      alert("Post text copied.");
+    }
+  } catch (error) {
+    // Sharing cancelled or unavailable
+  }
+};
+
+// Update footer
+document.querySelector(".footer").innerHTML =
+  '© <span id="year"></span> ConnectWorld · Your World. Your People. Your Possibilities.';
+
+// Keep existing year
+document.getElementById("year").textContent =
+  new Date().getFullYear();
+
+// ========================================
+// CONNECTWORLD BRANDING UPGRADE
+// Version 1.0
+// Preserves original SWASOUL theme
+// ========================================
+
+// Update browser title
+document.title = "ConnectWorld — Your World, Your People";
+
+// Update page description
+document.querySelector('meta[name="description"]')
+  .setAttribute(
+    "content",
+    "ConnectWorld — Your World. Your People. Your Possibilities."
+  );
+
+// Update logo
+document.querySelector(".logo").innerHTML =
+  'Connect<span>World</span>';
+
+// Update sidebar heading
+document.querySelector(".nav h3").textContent =
+  "Explore ConnectWorld";
+
+// Update welcome post
+starterPosts[0].name = "ConnectWorld Community";
+starterPosts[0].text =
+  "Welcome to ConnectWorld! 🌍 A space built around ideas, creativity, learning, and meaningful connections.";
+
+// Update right sidebar
+document.querySelector(".rightbar h3:nth-of-type(2)")?.textContent =
+  "The ConnectWorld vision";
+
+// Update messages heading
+document.querySelector("#messages h2").textContent =
+  "💬 ConnectWorld Messages";
+
+// Update share title
+const originalSharePost = sharePost;
+
+sharePost = async function(id) {
+  const post = posts.find(p => p.id === id);
+  if (!post) return;
+
+  const shareData = {
+    title: "ConnectWorld",
+    text: post.text
+  };
+
+  try {
+    if (navigator.share) {
+      await navigator.share(shareData);
+    } else if (navigator.clipboard) {
+      await navigator.clipboard.writeText(post.text);
+      alert("Post text copied.");
+    }
+  } catch (error) {
+    // Sharing cancelled or unavailable
+  }
+};
+
+// Update footer
+document.querySelector(".footer").innerHTML =
+  '© <span id="year"></span> ConnectWorld · Your World. Your People. Your Possibilities.';
+
+// Keep existing year
+document.getElementById("year").textContent =
+  new Date().getFullYear();
+  
 renderFeed();
 renderCommunities();
 loadProfile();
